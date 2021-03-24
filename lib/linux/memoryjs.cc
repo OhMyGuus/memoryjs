@@ -454,8 +454,8 @@ Napi::Value readBuffer(const Napi::CallbackInfo& args) {
   size_t size = args[2].As<Napi::Number>().Int64Value();
   char* data = Memory.readBuffer(handle, address, size);
   Napi::Buffer<char> buffer = Napi::Buffer<char>::New(env, data, size);
-  // free(data);
-  delete [] data; // deleting the char array...
+   // free(data);
+//  delete [] data; // deleting the char array...
   if (args.Length() == 4) {
     Napi::Function callback = args[3].As<Napi::Function>();
     callback.Call(env.Global(), { Napi::String::New(env, ""), buffer });
