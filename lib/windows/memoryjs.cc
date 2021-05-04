@@ -694,7 +694,7 @@ Napi::Value findPattern(const Napi::CallbackInfo& args) {
   if (strcmp(errorMessage, "") && address == -2) errorMessage = "no match found";
 
   // findPattern can be asynchronous
-  if (args.Length() == 7) {
+  if (args.Length() == 8) {
     // Callback to let the user handle with the information
     Napi::Function callback = args[7].As<Napi::Function>();
     callback.Call(env.Global(), { Napi::String::New(env, errorMessage), Napi::Value::From(env, address) });

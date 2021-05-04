@@ -245,7 +245,7 @@ Napi::Value findPattern(const Napi::CallbackInfo& args) {
   // If no error was set by getModules and the addressis -2 this means there was no match to the pattern
   if (strcmp(errorMessage, "") && address == (uintptr_t)-2) errorMessage = "no match found";
 
-  if (args.Length() == 7) {
+  if (args.Length() == 8) {
     // Callback to let the user handle the information
     Napi::Function callback = args[7].As<Napi::Function>();
     callback.Call(env.Global(), { Napi::String::New(env, errorMessage), Napi::Value::From(env, address) });
