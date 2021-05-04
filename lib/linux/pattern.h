@@ -20,7 +20,7 @@ public:
     ST_SUBTRACT = 0x2
   };
 
-  uintptr_t findPattern(pid_t hProcess, module::Module module, uintptr_t baseAddress, const char* pattern, short sigType, uintptr_t patternOffset, uintptr_t addressOffset);
+  uintptr_t findPattern(pid_t hProcess, module::Module module, uintptr_t baseAddress, const char* pattern, short sigType, uintptr_t patternOffset, uintptr_t addressOffset, uint32_t skip);
   bool compareBytes(const unsigned char* bytes, const char* pattern);
 };
 

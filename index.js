@@ -105,7 +105,7 @@ module.exports = {
 
     memoryjs.readBuffer(handle, address, size, callback);
   },
-  
+
   virtualAllocEx(handle, address, size, allocationType, protection, callback) {
     if (arguments.length === 5) {
       return memoryjs.virtualAllocEx(handle, address, size, allocationType, protection);
@@ -126,9 +126,9 @@ module.exports = {
     return memoryjs.writeBuffer(handle, address, buffer);
   },
 
-  findPattern(handle, moduleName, signature, signatureType, patternOffset, addressOffset, callback) {
+  findPattern(handle, moduleName, signature, signatureType, patternOffset, addressOffset, skip = 0, callback) {
     if (arguments.length === 6) {
-      return memoryjs.findPattern(handle, moduleName, signature, signatureType, patternOffset, addressOffset);
+      return memoryjs.findPattern(handle, moduleName, signature, signatureType, patternOffset, addressOffset, skip);
     }
 
     memoryjs.findPattern(handle, moduleName, signature, signatureType, patternOffset, addressOffset, callback);

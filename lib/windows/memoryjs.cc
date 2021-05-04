@@ -680,8 +680,9 @@ Napi::Value findPattern(const Napi::CallbackInfo& args) {
       short sigType = args[3].As<Napi::Number>().Uint32Value();
       uint32_t patternOffset = args[4].As<Napi::Number>().Uint32Value();
       uint32_t addressOffset = args[5].As<Napi::Number>().Uint32Value();
+      uint32_t skip = args[6].As<Napi::Number>().Uint32Value();
 
-      address = Pattern.findPattern(handle, moduleEntries[i], signature.c_str(), sigType, patternOffset, addressOffset);
+      address = Pattern.findPattern(handle, moduleEntries[i], signature.c_str(), sigType, patternOffset, addressOffset, skip);
       break;
     }
   }
@@ -695,7 +696,7 @@ Napi::Value findPattern(const Napi::CallbackInfo& args) {
   // findPattern can be asynchronous
   if (args.Length() == 7) {
     // Callback to let the user handle with the information
-    Napi::Function callback = args[6].As<Napi::Function>();
+    Napi::Function callback = args[7].As<Napi::Function>();
     callback.Call(env.Global(), { Napi::String::New(env, errorMessage), Napi::Value::From(env, address) });
     return env.Null();
   } else {

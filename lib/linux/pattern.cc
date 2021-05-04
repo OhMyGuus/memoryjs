@@ -17,7 +17,7 @@ pattern::pattern() {}
 pattern::~pattern() {}
 
 /* based off Y3t1y3t's implementation */
-uintptr_t pattern::findPattern(pid_t hProcess, module::Module module, uintptr_t baseAddress, const char* pattern, short sigType, uintptr_t patternOffset, uintptr_t addressOffset) { 
+uintptr_t pattern::findPattern(pid_t hProcess, module::Module module, uintptr_t baseAddress, const char* pattern, short sigType, uintptr_t patternOffset, uintptr_t addressOffset, uint32_t skip) { 
   memory Memory;
   auto moduleSize = uintptr_t(module.end - module.start);
   auto moduleBase = uintptr_t(module.start);
@@ -28,9 +28,9 @@ uintptr_t pattern::findPattern(pid_t hProcess, module::Module module, uintptr_t 
 
   auto byteBase = const_cast<unsigned char*>(&moduleBytes.at(0));
   auto maxOffset = moduleSize - 0x1000;
-
+  auto skipIndex = 0;
   for (auto offset = 0UL; offset < maxOffset; ++offset) {
-    if (compareBytes(byteBase + offset, pattern)) {
+    if (compareBytes(byteBase + offset, pattern) && skipIndex++ >= skip) {
       auto address = moduleBase + offset + patternOffset;
 
       /* read memory at pattern if flag is raised*/

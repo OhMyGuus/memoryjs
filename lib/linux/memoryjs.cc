@@ -230,8 +230,9 @@ Napi::Value findPattern(const Napi::CallbackInfo& args) {
       short sigType = args[3].As<Napi::Number>().Int32Value();
       uint32_t patternOffset = args[4].As<Napi::Number>().Int32Value();
       uint32_t addressOffset = args[5].As<Napi::Number>().Int32Value();
+      uint32_t skip = args[6].As<Napi::Number>().Int32Value();
 
-      address = Pattern.findPattern(hProcess, moduleEntries[i], baseAddress, signature.c_str(), sigType, patternOffset, addressOffset);
+      address = Pattern.findPattern(hProcess, moduleEntries[i], baseAddress, signature.c_str(), sigType, patternOffset, addressOffset, skip);
       if (address != (uintptr_t)-2) {
         break;
       }
@@ -246,7 +247,7 @@ Napi::Value findPattern(const Napi::CallbackInfo& args) {
 
   if (args.Length() == 7) {
     // Callback to let the user handle the information
-    Napi::Function callback = args[6].As<Napi::Function>();
+    Napi::Function callback = args[7].As<Napi::Function>();
     callback.Call(env.Global(), { Napi::String::New(env, errorMessage), Napi::Value::From(env, address) });
     return env.Null();
   } else {
