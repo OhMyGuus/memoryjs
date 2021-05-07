@@ -15,7 +15,7 @@ public:
 
   template <class dataType>
   dataType readMemory(HANDLE hProcess, DWORD64 address) {
-    dataType cRead;
+    dataType cRead = dataType();
     ReadProcessMemory(hProcess, (LPVOID)address, &cRead, sizeof(dataType), NULL);
     return cRead;
   }
@@ -27,7 +27,7 @@ public:
   }
 
   char readChar(HANDLE hProcess, DWORD64 address) {
-    char value;
+    char value = 0;
     ReadProcessMemory(hProcess, (LPVOID)address, &value, sizeof(char), NULL);
     return value;
 	}
