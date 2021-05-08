@@ -106,6 +106,10 @@ module.exports = {
     memoryjs.readBuffer(handle, address, size, callback);
   },
 
+  getProcessPath(handle) {
+      return memoryjs.getProcessPath(handle);
+  },
+
   virtualAllocEx(handle, address, size, allocationType, protection, callback) {
     if (arguments.length === 5) {
       return memoryjs.virtualAllocEx(handle, address, size, allocationType, protection);

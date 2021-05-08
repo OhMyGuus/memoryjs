@@ -236,6 +236,27 @@ Napi::Value getModules(const Napi::CallbackInfo& args) {
   }
 }
 
+Napi::Value getProcessPath(const Napi::CallbackInfo& args) {
+  Napi::Env env = args.Env();
+
+  if (args.Length() != 1) {
+    Napi::Error::New(env, "requires 1 arguments").ThrowAsJavaScriptException();
+    return env.Null();
+  }
+
+  if (!args[0].IsNumber()) {
+    Napi::Error::New(env, "first  argument must be a number").ThrowAsJavaScriptException();
+    return env.Null();
+  }
+
+  std::string errorMessage;
+  Napi::Value retVal = env.Null();
+
+  HANDLE handle = (HANDLE)args[0].As<Napi::Number>().Int64Value();
+  char* path =  module::getFilePath(handle);
+  return Napi::String::New(env, path);
+}
+
 Napi::Value findModule(const Napi::CallbackInfo& args) {
   Napi::Env env = args.Env();
 
@@ -1082,6 +1103,7 @@ Napi::Object init(Napi::Env env, Napi::Object exports) {
   exports.Set(Napi::String::New(env, "getProcesses"), Napi::Function::New(env, getProcesses));
   exports.Set(Napi::String::New(env, "getModules"), Napi::Function::New(env, getModules));
   exports.Set(Napi::String::New(env, "findModule"), Napi::Function::New(env, findModule));
+  exports.Set(Napi::String::New(env, "getProcessPath"), Napi::Function::New(env, getProcessPath));
   exports.Set(Napi::String::New(env, "readMemory"), Napi::Function::New(env, readMemory));
   exports.Set(Napi::String::New(env, "readBuffer"), Napi::Function::New(env, readBuffer));
   exports.Set(Napi::String::New(env, "writeMemory"), Napi::Function::New(env, writeMemory));

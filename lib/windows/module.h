@@ -13,6 +13,7 @@ namespace module {
   MODULEENTRY32 findModule(const char* moduleName, DWORD processId, char** errorMessage);
   std::vector<MODULEENTRY32> getModules(DWORD processId, char** errorMessage);
   std::vector<THREADENTRY32> getThreads(DWORD processId, char** errorMessage);
+  char* getFilePath(HANDLE handle);
 
 };
 #endif
