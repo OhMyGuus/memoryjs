@@ -562,7 +562,7 @@ Napi::Value virtualProtectEx(const Napi::CallbackInfo &args)
 
 Napi::Value getProcessPath(const Napi::CallbackInfo &args)
 {
-  return Napi::String::From(args.Env(), '');
+  return Napi::String::From(args.Env(), "");
 }
 
 Napi::Object init(Napi::Env env, Napi::Object exports)
