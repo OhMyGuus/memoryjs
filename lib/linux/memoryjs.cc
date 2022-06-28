@@ -562,8 +562,27 @@ Napi::Value virtualProtectEx(const Napi::CallbackInfo &args)
 
 Napi::Value getProcessPath(const Napi::CallbackInfo &args)
 {
-  return Napi::String::From(args.Env(), "");
-}
+  Napi::Env env = args.Env();
+
+  if (args.Length() != 1) {
+    Napi::Error::New(env, "requires 1 arguments").ThrowAsJavaScriptException();
+    return env.Null();
+  }
+
+  if (!args[0].IsNumber()) {
+    Napi::Error::New(env, "first  argument must be a number").ThrowAsJavaScriptException();
+    return env.Null();
+  }
+
+  std::string errorMessage;
+  Napi::Value retVal = env.Null();
+
+  pid_t handle = (pid_t)args[0].As<Napi::Number>().Int64Value();
+  
+
+  char* path =  module::getFilePath(handle);
+  return Napi::String::New(env, path);
+  }
 
 Napi::Object init(Napi::Env env, Napi::Object exports)
 {

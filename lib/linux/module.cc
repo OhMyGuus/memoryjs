@@ -103,3 +103,34 @@ module::Module module::findModule(const char* moduleName, pid_t processId, const
     return result;
 
 }
+
+const char* get_process_name_by_pid(const int pid)
+{
+    char* name = (char*)calloc(1024,sizeof(char));
+    if(name){
+        sprintf(name, "/proc/%d/comm",pid);
+        FILE* f = fopen(name,"r");
+        if(f){
+            size_t size;
+            size = fread(name, sizeof(char), 1024, f);
+            if(size>0){
+                if('\n'==name[size-1])
+                    name[size-1]='\0';
+            }
+            fclose(f);
+        }
+    }
+    return name;
+}
+
+char* module::getFilePath(pid_t processId)
+{
+  char *path = new char[150];
+
+  sprintf(path, "/proc/%d/cwd", processId);
+  readlink(path, path, 150);
+  sprintf(path, "%s/%s", path, get_process_name_by_pid(processId));
+
+  return path;
+}
+ 
