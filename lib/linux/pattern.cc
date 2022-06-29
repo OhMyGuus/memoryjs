@@ -27,9 +27,8 @@ uintptr_t pattern::findPattern(pid_t hProcess, module::Module module, uintptr_t 
   Memory.readMemoryData(hProcess, moduleBase, &moduleBytes[0], moduleSize);
 
   auto byteBase = const_cast<unsigned char*>(&moduleBytes.at(0));
-  auto maxOffset = moduleSize - 0x1000;
   auto skipIndex = 0;
-  for (auto offset = 0UL; offset < maxOffset; ++offset) {
+  for (auto offset = 0UL; offset < moduleSize; ++offset) {
     if (compareBytes(byteBase + offset, pattern) && skipIndex++ >= skip) {
       auto address = moduleBase + offset + patternOffset;
 
