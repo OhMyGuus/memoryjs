@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "node-gyp rebuild",
-    "build32": "node-gyp clean configure build --arch=ia32",
-    "build64": "node-gyp clean configure build --arch=x64",
+    "install": "node-gyp rebuild --openssl_fips=''",
+    "build32": "node-gyp clean configure build --arch=ia32 --openssl_fips=''",
+    "build64": "node-gyp clean configure build --arch=x64 --openssl_fips=''",
     "buildtest": "cd test && MSBuild.exe project.sln //p:Configuration=Release"
   },
   "repository": {
