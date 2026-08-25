@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "node-gyp rebuild",
+    "install": "node-gyp-build",
     "build32": "node-gyp clean configure build --arch=ia32",
     "build64": "node-gyp clean configure build --arch=x64",
     "prebuild": "prebuildify --napi",
