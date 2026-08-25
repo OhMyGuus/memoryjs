@@ -8,6 +8,8 @@
     "install": "node-gyp rebuild",
     "build32": "node-gyp clean configure build --arch=ia32",
     "build64": "node-gyp clean configure build --arch=x64",
+    "prebuild": "prebuildify --napi",
+    "prebuild:ia32": "prebuildify --napi --arch ia32 --target node@22.23.2",
     "buildtest": "cd test && MSBuild.exe project.sln //p:Configuration=Release"
   },
   "repository": {
@@ -29,9 +31,12 @@
   },
   "homepage": "https://github.com/Rob--/memoryjs#readme",
   "dependencies": {
-    "bindings": "^1.5.0",
     "concentrate": "^0.2.3",
     "dissolve": "^0.3.3",
-    "node-addon-api": "^8.9.2"
+    "node-addon-api": "^8.9.2",
+    "node-gyp-build": "4.x.x"
+  },
+  "devDependencies": {
+    "prebuildify": "6.x.x"
   }
 }

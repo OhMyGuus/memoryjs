@@ -1,4 +1,4 @@
-const memoryjs = require('./build/Release/memoryjs');
+const memoryjs = require('node-gyp-build')(__dirname);
 
 module.exports = {
   // data type constants
