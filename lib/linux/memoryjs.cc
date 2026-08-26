@@ -530,9 +530,10 @@ Napi::Value readBuffer(const Napi::CallbackInfo &args)
   uintptr_t address = args[1].As<Napi::Number>().Int64Value();
   size_t size = args[2].As<Napi::Number>().Int64Value();
   char *data = Memory.readBuffer(handle, address, size);
-  Napi::Buffer<char> buffer = Napi::Buffer<char>::New(env, data, size);
-  // free(data);
-  //  delete [] data; // deleting the char array...
+  // V8's sandbox (default since Electron 43/Node 24) disallows external
+  // (zero-copy) buffers, so copy into V8's own heap and free our allocation.
+  Napi::Buffer<char> buffer = Napi::Buffer<char>::Copy(env, data, size);
+  delete[] data;
   if (args.Length() == 4)
   {
     Napi::Function callback = args[3].As<Napi::Function>();
