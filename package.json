@@ -31,12 +31,12 @@
   },
   "homepage": "https://github.com/Rob--/memoryjs#readme",
   "dependencies": {
-    "concentrate": "^0.2.3",
-    "dissolve": "^0.3.3",
     "node-addon-api": "^8.9.2",
     "node-gyp-build": "4.x.x"
   },
   "devDependencies": {
+    "concentrate": "^0.2.3",
+    "dissolve": "^0.3.3",
     "prebuildify": "6.x.x"
   }
 }
